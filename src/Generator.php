@@ -1,32 +1,32 @@
 <?php
 
-use Faker\Provider\Base;
+namespace NewAgeIpsum;
 
-class IpsumProvider extends Base
+class Generator
 {
-
-    protected $used_pattern = [];
-
-    public function sentence($topic = null)
-    {
-        return $this->generateSentence($topic);
-    }
-
-    public function paragraph($numberOfSentences = 3, $sentenceTopic = null)
-    {
-        return $this->generateParagraph($numberOfSentences, $sentenceTopic);
-    }
-
-    protected function generateParagraph($numberOfSentences = 3, $sentenceTopic = null)
+    function generateParagraph($number_of_sentences = 3, $topic = null)
     {
         $paragraph = [];
-        for ($i = 0; $i < $numberOfSentences;) {
-            $sentence = $this->generateSentence($sentenceTopic);
+        for ($i = 0; $i < $number_of_sentences;) {
+            $sentence = $this->generateSentence($topic);
             $paragraph[] = $sentence;
             $i++;
         }
         $paragraph = implode(' ', $paragraph);
         return $paragraph;
+    }
+
+    function generateParagraphs($number_of_paragraphs = 3, $topic = null)
+    {
+        $paragraphs = [];
+        if (!is_numeric($number_of_paragraphs)) {
+            return false;
+        }
+        for ($i = 0; $i < $number_of_paragraphs; $i++) {
+            $number_of_sentences = rand(2,5);
+            $paragraphs[] = $this->generateParagraph($number_of_sentences, $topic);
+        }
+        return $paragraphs;
     }
 
     function generateSentence($topic = null)
@@ -39,15 +39,19 @@ class IpsumProvider extends Base
         $pattern = $this->sentencePatterns[$topic][$patternNumber];
         $this->used_pattern[] = $pattern;
         $match_pattern = '/(' . implode('|', array_keys($this->vocab)) . ')/is';
-        $pattern = preg_replace_callback($match_pattern, function ($matches) {
-            foreach ($matches as $match) {
-                $word = $this->retrieveRandomWordOfType($match);
-                if ($word) {
-                    return $word;
+        $pattern = preg_replace_callback(
+            $match_pattern,
+            function ($matches) {
+                foreach ($matches as $match) {
+                    $word = $this->retrieveRandomWordOfType($match);
+                    if ($word) {
+                        return $word;
+                    }
+                    return $match;
                 }
-                return $match;
-            }
-        }, $pattern);
+            },
+            $pattern
+        );
         $pattern = preg_replace('/ ([,\.;\?])/', '', $pattern);
         if (substr($pattern, -1) != '?') {
             $pattern .= '.';
@@ -55,6 +59,18 @@ class IpsumProvider extends Base
 
         ucfirst($pattern);
         return $pattern;
+    }
+
+    public function generateSentences($number_of_sentences = 3, $topic = null){
+        $sentences = [];
+        if (!is_numeric($number_of_sentences)) {
+            return false;
+        }
+        for ($i = 0; $i < $number_of_sentences; $i++) {
+
+            $sentences[] = $this->generateSentence($topic);
+        }
+        return $sentences;
     }
 
     function retrieveRandomWordOfType($type)
@@ -438,7 +454,6 @@ class IpsumProvider extends Base
             'baptized in'
 
         ],
-
         'fixedAdvPPlace' => [
             'in this dimension',
             'outside time',
@@ -500,8 +515,8 @@ class IpsumProvider extends Base
             'naturopathy',
             'numerology',
             'affirmations',
-            'the Law of Attraction'],
-
+            'the Law of Attraction'
+        ],
         'vOpenUp' => [
             'open up',
             'give us access to',
@@ -510,8 +525,8 @@ class IpsumProvider extends Base
             'clear a path toward',
             'let us access',
             'tap into',
-            'align us with'],
-
+            'align us with'
+        ],
         'vTraverse' => [
             'traverse',
             'walk',
@@ -521,7 +536,8 @@ class IpsumProvider extends Base
             'roam',
             'navigate',
             'wander',
-            'embark on']
+            'embark on'
+        ]
     ];
     //patterns
     public $sentencePatterns = [
@@ -598,6 +614,5 @@ class IpsumProvider extends Base
                 'As you viPerson, you will enter into infinite nMass that transcends understanding'
             ]
     ];
-
 
 } 
