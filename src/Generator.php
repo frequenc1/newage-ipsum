@@ -23,7 +23,7 @@ class Generator
             return false;
         }
         for ($i = 0; $i < $number_of_paragraphs; $i++) {
-            $number_of_sentences = rand(2,5);
+            $number_of_sentences = rand(2, 5);
             $paragraphs[] = $this->generateParagraph($number_of_sentences, $topic);
         }
         return $paragraphs;
@@ -61,7 +61,8 @@ class Generator
         return $pattern;
     }
 
-    public function generateSentences($number_of_sentences = 3, $topic = null){
+    public function generateSentences($number_of_sentences = 3, $topic = null)
+    {
         $sentences = [];
         if (!is_numeric($number_of_sentences)) {
             return false;
@@ -73,7 +74,12 @@ class Generator
         return $sentences;
     }
 
-    function retrieveRandomWordOfType($type)
+    public function generateWord($type)
+    {
+        return $this->retrieveRandomWordOfType($type);
+    }
+
+    private function retrieveRandomWordOfType($type)
     {
         if (!isset($this->vocab[$type])) {
             return null;
@@ -87,7 +93,7 @@ class Generator
 
 
     //Vocab
-    public $vocab = [
+    private $vocab = [
         'nCosmos' => [
             'cosmos',
             'quantum soup',
@@ -540,7 +546,7 @@ class Generator
         ]
     ];
     //patterns
-    public $sentencePatterns = [
+    private $sentencePatterns = [
         'explaining' =>
             [
                 'nMass is the driver of nMass',
