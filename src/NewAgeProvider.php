@@ -6,6 +6,16 @@ use Faker\Provider\Base;
 
 class NewAgeProvider extends Base
 {
+    public function word()
+    {
+        $generator = new Generator();
+        return $generator->generateWord();
+    }
+    public function words($nb_words = 3)
+    {
+        $generator = new Generator();
+        return $generator->generateWords($nb_words);
+    }
     public function sentence($topic = null)
     {
         $generator = new Generator();

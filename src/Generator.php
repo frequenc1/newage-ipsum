@@ -4,27 +4,44 @@ namespace NewAgeIpsum;
 
 class Generator
 {
-    function generateParagraph($number_of_sentences = 3, $topic = null)
+
+    public function generateWord()
+    {
+        return $this->retrieveRandomWordOfType($this->getRandomVocabType());
+    }
+
+    public function generateWords($nb_words = 3)
+    {
+        if (!is_numeric($nb_words)) {
+            return false;
+        }
+        $words = [];
+        for ($i = 0; $i < $nb_words; $i++) {
+            $words[] = $this->generateWord();
+        }
+        return $words;
+    }
+
+    function generateParagraph($nb_sentences = 3, $topic = null)
     {
         $paragraph = [];
-        for ($i = 0; $i < $number_of_sentences;) {
+        for ($i = 0; $i < $nb_sentences; $i++) {
             $sentence = $this->generateSentence($topic);
             $paragraph[] = $sentence;
-            $i++;
         }
         $paragraph = implode(' ', $paragraph);
         return $paragraph;
     }
 
-    function generateParagraphs($number_of_paragraphs = 3, $topic = null)
+    function generateParagraphs($nb_paragraphs = 3, $topic = null)
     {
         $paragraphs = [];
-        if (!is_numeric($number_of_paragraphs)) {
+        if (!is_numeric($nb_paragraphs)) {
             return false;
         }
-        for ($i = 0; $i < $number_of_paragraphs; $i++) {
-            $number_of_sentences = rand(2, 5);
-            $paragraphs[] = $this->generateParagraph($number_of_sentences, $topic);
+        for ($i = 0; $i < $nb_paragraphs; $i++) {
+            $nb_sentences = rand(2, 5);
+            $paragraphs[] = $this->generateParagraph($nb_sentences, $topic);
         }
         return $paragraphs;
     }
@@ -37,7 +54,6 @@ class Generator
 
         $patternNumber = array_rand($this->sentencePatterns[$topic]);
         $pattern = $this->sentencePatterns[$topic][$patternNumber];
-        $this->used_pattern[] = $pattern;
         $match_pattern = '/(' . implode('|', array_keys($this->vocab)) . ')/is';
         $pattern = preg_replace_callback(
             $match_pattern,
@@ -61,23 +77,19 @@ class Generator
         return $pattern;
     }
 
-    public function generateSentences($number_of_sentences = 3, $topic = null)
+    public function generateSentences($nb_sentences = 3, $topic = null)
     {
         $sentences = [];
-        if (!is_numeric($number_of_sentences)) {
+        if (!is_numeric($nb_sentences)) {
             return false;
         }
-        for ($i = 0; $i < $number_of_sentences; $i++) {
+        for ($i = 0; $i < $nb_sentences; $i++) {
 
             $sentences[] = $this->generateSentence($topic);
         }
         return $sentences;
     }
 
-    public function generateWord($type)
-    {
-        return $this->retrieveRandomWordOfType($type);
-    }
 
     private function retrieveRandomWordOfType($type)
     {
@@ -91,6 +103,11 @@ class Generator
         return $this->vocab[$type][$random];
     }
 
+    private function getRandomVocabType()
+    {
+        $types = array_keys($this->vocab);
+        return $types[array_rand($types)];
+    }
 
     //Vocab
     private $vocab = [

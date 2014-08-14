@@ -3,6 +3,19 @@
 class GeneratorTest extends PHPUnit_Framework_TestCase
 {
 
+    public function testWord()
+    {
+        $generator = new \NewAgeIpsum\Generator();
+        $this->assertNotEmpty($generator->generateWord());
+    }
+
+    public function testWords()
+    {
+        $generator = new \NewAgeIpsum\Generator();
+        $this->assertNotEmpty($generator->generateWords());
+        $this->assertCount(5, $generator->generateWords(5));
+    }
+
     public function testSentence()
     {
         $generator = new \NewAgeIpsum\Generator();

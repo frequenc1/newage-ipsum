@@ -10,6 +10,20 @@ use NewAgeIpsum\NewAgeProvider;
 
 class NewAgeProviderTest extends PHPUnit_Framework_TestCase {
 
+    public function testWord()
+    {
+        $faker = new Faker\Generator();
+        $faker->addProvider(new NewAgeProvider($faker));
+        $this->assertNotEmpty($faker->word());
+    }
+
+    public function testWords()
+    {
+        $faker = new Faker\Generator();
+        $faker->addProvider(new NewAgeProvider($faker));
+        $this->assertCount(2,$faker->words(2));
+    }
+
     public function testSentence()
     {
         $faker = new Faker\Generator();
