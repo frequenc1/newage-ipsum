@@ -6,10 +6,14 @@ It was just to good to not use with my testing tools!
 
 Usage:
 
+```php
 $generator = new \NewAgeIpsum\Generator();
 $generator->generateSentence();
+```
 
 You can also use it with the fantastic Faker library! (It's actually what its designed for)
 
+```
 $faker = new Faker\Generator();
 $faker->addProvider(new NewAgeProvider($faker));
+```
