@@ -1,0 +1,20 @@
+{
+    "name": "frequenc1/newage-ipsum",
+    "type": "library",
+    "description": "A new aged bullshit ipsum provider for the faker library inspired by http://sebpearce.com/bullshit/",
+    "authors": [
+        {
+            "name": "Jason Soares",
+            "email": "jsoares@theexperiment.org"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "fzaninotto/faker": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "NewAgeIpsum\\": "src/"
+        }
+    }
+}
