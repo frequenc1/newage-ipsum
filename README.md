@@ -2,7 +2,7 @@ newage-ipsum
 ===============
 
 A new aged ipsum generator inspired/ported to php by Seb Pearce https://github.com/sebpearce/bullshit.
-It was just to good to not use with my testing tools!
+It was just to good to not use with tests!
 
 ###Usage
 
