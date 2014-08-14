@@ -5,6 +5,17 @@ namespace NewAgeIpsum;
 class Generator
 {
 
+    public function generateText($maxNbChars = 200){
+        if (!is_numeric($maxNbChars)) {
+            return false;
+        }
+        $text = '';
+        while(strlen($text) <= $maxNbChars){
+            $text .= $this->generateParagraph();
+        }
+        return substr($text,0, $maxNbChars);
+    }
+
     public function generateWord()
     {
         return $this->retrieveRandomWordOfType($this->getRandomVocabType());

@@ -8,7 +8,15 @@
 
 use NewAgeIpsum\NewAgeProvider;
 
-class NewAgeProviderTest extends PHPUnit_Framework_TestCase {
+class NewAgeProviderTest extends PHPUnit_Framework_TestCase
+{
+
+    public function testText()
+    {
+        $faker = new Faker\Generator();
+        $faker->addProvider(new NewAgeProvider($faker));
+        $this->assertNotEmpty($faker->text());
+    }
 
     public function testWord()
     {
@@ -21,7 +29,7 @@ class NewAgeProviderTest extends PHPUnit_Framework_TestCase {
     {
         $faker = new Faker\Generator();
         $faker->addProvider(new NewAgeProvider($faker));
-        $this->assertCount(2,$faker->words(2));
+        $this->assertCount(2, $faker->words(2));
     }
 
     public function testSentence()
@@ -35,7 +43,7 @@ class NewAgeProviderTest extends PHPUnit_Framework_TestCase {
     {
         $faker = new Faker\Generator();
         $faker->addProvider(new NewAgeProvider($faker));
-        $this->assertCount(2,$faker->sentences(2));
+        $this->assertCount(2, $faker->sentences(2));
     }
 
     public function testParagraph()
@@ -44,6 +52,7 @@ class NewAgeProviderTest extends PHPUnit_Framework_TestCase {
         $faker->addProvider(new NewAgeProvider($faker));
         $this->assertNotEmpty($faker->paragraph());
     }
+
     public function testParagraphs()
     {
         $faker = new Faker\Generator();

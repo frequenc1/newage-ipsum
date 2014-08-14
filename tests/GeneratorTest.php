@@ -3,6 +3,13 @@
 class GeneratorTest extends PHPUnit_Framework_TestCase
 {
 
+    public function testText()
+    {
+        $generator = new \NewAgeIpsum\Generator();
+        $this->assertNotEmpty($generator->generateText());
+        $this->assertEquals(300, strlen($generator->generateText(300)));
+    }
+
     public function testWord()
     {
         $generator = new \NewAgeIpsum\Generator();
@@ -20,6 +27,7 @@ class GeneratorTest extends PHPUnit_Framework_TestCase
     {
         $generator = new \NewAgeIpsum\Generator();
         $this->assertNotEmpty($generator->generateSentence());
+
     }
 
     public function testSentences()
