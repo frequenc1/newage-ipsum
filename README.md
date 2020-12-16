@@ -14,10 +14,10 @@ $generator->generateSentence();
 ###Faker
 You can also use it with the fantastic Faker library! (It's actually what its designed for)
 
-https://github.com/fzaninotto/Faker
+https://github.com/FakerPHP/Faker
 
 ```php
-$faker = new Faker\Generator();
+$faker = Faker\Factory::create();
 $faker->addProvider(new NewAgeProvider($faker));
 ```
 This will replace the default Faker\Provider\Lorem methods with newage versions

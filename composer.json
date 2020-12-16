@@ -1,16 +1,15 @@
 {
-    "name": "frequenc1/newage-ipsum",
+    "name": "null/newage-ipsum",
     "type": "library",
-    "description": "A new aged ipsum generator inspired/ported to php by Seb Pearce https://github.com/sebpearce/bullshit",
+    "description": "A new version (compatible to fakerphp) of the new aged ipsum generator forked from frequenc1/newage-ipsum",
     "authors": [
         {
-            "name": "Jason Soares",
-            "email": "jsoares@theexperiment.org"
+            "name": "Bernhard Strehl"
         }
     ],
     "require": {
-        "php": ">=5.4.0",
-        "fzaninotto/faker": "~1"
+        "php": ">=7.1.0",
+        "fakerphp/faker": "~1"
     },
     "require-dev": {
         "phpunit/phpunit" : "*"
